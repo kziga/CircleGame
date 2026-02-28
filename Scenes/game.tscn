@@ -1,0 +1,125 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdq30kprr30t7"]
+
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_n5lau"]
+[ext_resource type="PackedScene" uid="uid://0dvwr2jpng1v" path="res://Scenes/circle.tscn" id="2_p8rog"]
+[ext_resource type="Shader" path="res://Scenes/waving_background.gdshader" id="3_rugt5"]
+[ext_resource type="Texture2D" uid="uid://r3sq1t2lkwhn" path="res://background.png" id="4_cpohe"]
+[ext_resource type="PackedScene" uid="uid://bcywurkdknhps" path="res://Scenes/shake_camera_2d.tscn" id="5_whgq3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6v0am"]
+shader = ExtResource("3_rugt5")
+shader_parameter/wave_speed = 3.0
+shader_parameter/wave_freq = 10.0
+shader_parameter/wave_width = 0.01
+
+[sub_resource type="LabelSettings" id="LabelSettings_ue5tg"]
+font_size = 32
+outline_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_i7ca4"]
+font_size = 32
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_n5lau")
+circle_scene = ExtResource("2_p8rog")
+
+[node name="ShakeCamera2D" parent="." instance=ExtResource("5_whgq3")]
+position = Vector2(-3, 0)
+anchor_mode = 0
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="LevelTimer" type="Timer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_6v0am")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -148.0
+offset_right = 1217.0
+offset_bottom = 876.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_cpohe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Score" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 13.0
+offset_right = 78.0
+offset_bottom = 53.0
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/UI/Score"]
+layout_mode = 2
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_ue5tg")
+
+[node name="Lives" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 28.759
+anchor_right = 28.759
+offset_left = -149.36
+offset_top = 13.0
+offset_right = -37.36
+offset_bottom = 58.0
+
+[node name="LivesLabel" type="Label" parent="CanvasLayer/UI/Lives"]
+layout_mode = 2
+text = "Lives: 3"
+label_settings = SubResource("LabelSettings_i7ca4")
+
+[node name="LevelUpMenu" type="VBoxContainer" parent="CanvasLayer/UI"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 541.0
+offset_top = 252.0
+offset_right = 580.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/LevelUpMenu"]
+layout_mode = 2
+text = "Level Up"
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/UI/LevelUpMenu"]
+layout_mode = 2
+text = "Continue"
+
+[node name="GameOverMenu" type="VBoxContainer" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 251.0
+offset_right = 627.0
+offset_bottom = 309.0
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/GameOverMenu"]
+layout_mode = 2
+text = "Game Over"
+
+[node name="NewGameButton" type="Button" parent="CanvasLayer/UI/GameOverMenu"]
+process_mode = 2
+layout_mode = 2
+text = "New Game"
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/UI/LevelUpMenu/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameOverMenu/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameOverMenu/NewGameButton" to="." method="_on_button_pressed"]

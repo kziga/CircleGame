@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://0dvwr2jpng1v"]
+
+[ext_resource type="Script" path="res://Scenes/circle.gd" id="1_i5wrh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_860vk"]
+resource_local_to_scene = true
+
+[node name="Circle" type="Area2D" groups=["circles"]]
+script = ExtResource("1_i5wrh")
+
+[node name="ClickBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_860vk")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
