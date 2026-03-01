@@ -1,17 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://crtps0huebii2"]
+[gd_scene format=3 uid="uid://crtps0huebii2"]
 
-[ext_resource type="Script" path="res://Scenes/pointDisplay.gd" id="1_1q41e"]
+[ext_resource type="Script" uid="uid://bowbywke6l2sa" path="res://Scenes/pointDisplay.gd" id="1_1q41e"]
 
 [sub_resource type="SystemFont" id="SystemFont_t4212"]
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_6xhvw"]
 font = SubResource("SystemFont_t4212")
 font_color = Color(0, 0.721569, 0, 1)
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" unique_id=319924644]
+process_mode = 3
 script = ExtResource("1_1q41e")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1731325806]
 offset_right = 40.0
 offset_bottom = 23.0
 label_settings = SubResource("LabelSettings_6xhvw")

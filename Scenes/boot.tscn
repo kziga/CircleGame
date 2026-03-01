@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmd6urbu35d1q"]
+[gd_scene format=3 uid="uid://dmd6urbu35d1q"]
 
-[ext_resource type="Script" path="res://Scenes/boot.gd" id="1_1yd1m"]
+[ext_resource type="Script" uid="uid://b5h1tqqabybgu" path="res://Scenes/boot.gd" id="1_1yd1m"]
+[ext_resource type="Texture2D" uid="uid://b3n6dnvfhdoyc" path="res://Assets/start.png" id="2_8pypq"]
+[ext_resource type="Texture2D" uid="uid://r3sq1t2lkwhn" path="res://background.png" id="2_eyucu"]
 
-[node name="Boot" type="Control"]
+[sub_resource type="LabelSettings" id="LabelSettings_eyucu"]
+font_size = 32
+outline_size = 2
+
+[node name="Boot" type="Control" unique_id=1727794373]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +17,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1yd1m")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=391875194]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -148.0
+offset_right = 65.0
+offset_bottom = 228.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_eyucu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1778312436]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -19,21 +38,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -46.5
-offset_top = -29.0
+offset_top = -45.5
 offset_right = 46.5
-offset_bottom = 29.0
+offset_bottom = 45.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=29390567]
 layout_mode = 2
 text = "Circle Game"
+label_settings = SubResource("LabelSettings_eyucu")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer" unique_id=1044027596]
 layout_mode = 2
-mouse_filter = 1
-text = "Start"
+texture_normal = ExtResource("2_8pypq")
+stretch_mode = 6
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]

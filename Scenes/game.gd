@@ -12,7 +12,7 @@ var difficulty_multiplier
 func _ready():
 	total_score = 0
 	this_round_score = 0
-	lives = 30
+	lives = 3
 	difficulty_multiplier = 1.0
 	$SpawnTimer.start()
 	$CanvasLayer/UI/LevelUpMenu.hide()
@@ -75,14 +75,14 @@ func _on_circle_clicked(data):
 	$ShakeCamera2D.shake(2)
 	this_round_score += data.points
 	total_score += data.points
-	$CanvasLayer/UI/Score/ScoreLabel.text = "Score: " + str(total_score)
+	$CanvasLayer/UI/Score/ScoreLabel.text = "Score: " + str(int(total_score))
 	
 	var d = POINT_DISPLAY.instantiate()
 	add_child(d)
 	d._display_points(data.pos,data.points)
 
 	if this_round_score >= 100:
-		_level_up()
+		call_deferred("_level_up")
 
 func _on_circle_missed():
 	$ShakeCamera2D.shake(3)
@@ -98,7 +98,8 @@ func _on_continue_button_pressed():
 	$SpawnTimer.start()
 
 
-func _on_new_game_button_pressed():
+func _on_texture_button_pressed() -> void:
+	print("NEW GAME")
 	$CanvasLayer/UI/GameOverMenu.hide()
 	total_score = 0
 	this_round_score = 0
